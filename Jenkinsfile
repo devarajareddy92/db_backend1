@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/your_username/your_repository.git'
+                git 'http://10.101.104.22:8090/cloudytech/db_backend.git'
             }
         }
         stage('Setup environment') {
