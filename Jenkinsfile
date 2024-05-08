@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        VENV = '.venv'  // Assuming your virtual environment directory is named '.venv'
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -8,10 +11,8 @@ pipeline {
         }
         stage('Setup environment') {
             steps {
-                // Install any necessary system packages
-                sh 'sudo apt-get update && sudo apt-get install -y python3-venv python3-pip'
-                // Optionally, create and activate a virtual environment
-                sh 'python3 -m venv venv && source venv/bin/activate'
+                // Activate the virtual environment
+                sh "source $VENV/bin/activate"
             }
         }
         stage('Install dependencies') {
