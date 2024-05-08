@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         VENV = '.venv'  // Assuming your virtual environment directory is named '.venv'
+        JENKINS_PASSWORD = 'IPMCloud123#'  // Jenkins VM password
     }
     stages {
         stage('Checkout') {
@@ -12,7 +13,7 @@ pipeline {
         stage('Setup environment') {
             steps {
                 // Install pkg-config
-                sh 'echo admin | sudo -S apt-get update && echo IPMCloud123# | sudo -S apt-get install -y pkg-config'
+                sh "echo ${JENKINS_PASSWORD} | sudo -S apt-get update && echo ${JENKINS_PASSWORD} | sudo -S apt-get install -y pkg-config"
             }
         }
         stage('Install dependencies') {
