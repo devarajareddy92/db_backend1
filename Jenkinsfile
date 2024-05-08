@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout your source code from your version control system (e.g., Git)
-                git 'http://10.101.104.22:8090/cloudytech/db_backend.git'
+                git 'https://github.com/devarajareddy92/db_backend1.git'
             }
         }
         stage('Setup environment') {
@@ -24,7 +24,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Perform any additional build steps
-                sh 'python setup.py build' // Example: Running a setup.py file for building
+                sh 'python app.py build' // Example: Running a setup.py file for building
             }
         }
     }
