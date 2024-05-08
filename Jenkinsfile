@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         VENV = '.venv'  // Assuming your virtual environment directory is named '.venv'
-        JENKINS_PASSWORD = 'IPMCloud123#'  // Jenkins VM password
+        JENKINS_PASSWORD = 'Dev143mom###'  // Jenkins VM password
     }
     stages {
         stage('Checkout') {
