@@ -12,7 +12,12 @@ pipeline {
         stage('Setup environment') {
             steps {
                 // Activate the virtual environment
-                sh "source $VENV/bin/activate"
+                script {
+                    // Modify PATH to include virtual environment's bin directory
+                    withEnv(["PATH+=$VENV/bin"]) {
+                        sh 'pip install --upgrade pip setuptools'
+                    }
+                }
             }
         }
         stage('Install dependencies') {
