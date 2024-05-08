@@ -3,8 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout your source code from your version control system (e.g., Git)
-                git 'https://github.com/devarajareddy92/db_backend1.git'
+                checkout([$class: 'GitSCM', branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/devarajareddy92/pytest-intro-vs-M.git']]])
             }
         }
         stage('Setup environment') {
