@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
         VENV = '.venv'  // Assuming your virtual environment directory is named '.venv'
-        JENKINS_PASSWORD = 'Dev143mom###'  // Jenkins VM password
     }
     stages {
         stage('Checkout') {
@@ -12,21 +11,24 @@ pipeline {
         }
         stage('Setup environment') {
             steps {
-                // Install pkg-config
-                sh "echo ${JENKINS_PASSWORD} | sudo -S apt-get update && echo ${JENKINS_PASSWORD} | sudo -S apt-get install -y pkg-config"
+                // Activate the virtual environment
+                script {
+                    // Modify PATH to include virtual environment's bin directory
+                    withEnv(["PATH+=$VENV/bin"]) {
+                        sh 'pip install --upgrade pip setuptools'
+                    }
+                }
             }
         }
         stage('Install dependencies') {
             steps {
-                // Activate the virtual environment
-                sh "source $VENV/bin/activate"
-                // Install Python dependencies using pip within the virtual environment
+                // Install Python dependencies using pip
                 sh 'pip install -r requirements.txt'
             }
         }
         stage('Build') {
             steps {
-                // Perform any additional build steps within the virtual environment
+                // Perform any additional build steps
                 sh 'python app.py build' // Example: Running a setup.py file for building
             }
         }
