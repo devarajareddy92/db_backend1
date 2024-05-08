@@ -11,24 +11,21 @@ pipeline {
         }
         stage('Setup environment') {
             steps {
-                // Activate the virtual environment
-                script {
-                    // Modify PATH to include virtual environment's bin directory
-                    withEnv(["PATH+=$VENV/bin"]) {
-                        sh 'pip install --upgrade pip setuptools'
-                    }
-                }
+                // Install pkg-config
+                sh 'sudo apt-get update && sudo apt-get install -y pkg-config'
             }
         }
         stage('Install dependencies') {
             steps {
-                // Install Python dependencies using pip
+                // Activate the virtual environment
+                sh "source $VENV/bin/activate"
+                // Install Python dependencies using pip within the virtual environment
                 sh 'pip install -r requirements.txt'
             }
         }
         stage('Build') {
             steps {
-                // Perform any additional build steps
+                // Perform any additional build steps within the virtual environment
                 sh 'python app.py build' // Example: Running a setup.py file for building
             }
         }
