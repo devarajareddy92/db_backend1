@@ -12,7 +12,7 @@ pipeline {
         stage('Setup environment') {
             steps {
                 // Install pkg-config
-                sh 'sudo apt-get update && sudo apt-get install -y pkg-config'
+                sh 'echo IPMCloud123# | sudo -S apt-get update && echo IPMCloud123# | sudo -S apt-get install -y pkg-config'
             }
         }
         stage('Install dependencies') {
