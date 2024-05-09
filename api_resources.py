@@ -9,10 +9,10 @@ from configDb import mysql_config
 app = Flask(__name__)
 api = Api(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://dbadmin:Nsdl$12345@localhost:3306/db_frontend'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://dbadmin:Nsdl$12345@10.101.104.110:3306/db_frontend'
 # MySQL connection configuration
 mysql_config = {
-    'host': 'localhost',
+    'host': '10.101.104.110',
     'user': 'username',
     'password': 'password',
     'database': 'database_name'
