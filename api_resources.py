@@ -12,7 +12,7 @@ api = Api(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://dbadmin:Nsdl$12345@10.101.104.110:3306/db_frontend'
 # MySQL connection configuration
 mysql_config = {
-    'host': '10.101.104.110',
+    'host': 'localhost',
     'user': 'username',
     'password': 'password',
     'database': 'database_name'
