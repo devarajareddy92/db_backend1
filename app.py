@@ -31,7 +31,7 @@ api = Api(app)
 
 #-----------------------Db configuration--------------------------------
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@host:port/db_name'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://dbadmin:Nsdl$12345@localhost:3306/db_frontend'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://dbadmin:Nsdl$12345@10.101.104.110:3306/db_frontend'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
 # f"mysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/"
 DB_URL = f"mysql://dbadmin:Nsdl$12345@localhost:3306/"
