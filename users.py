@@ -9,7 +9,7 @@ import subprocess
 app = Flask(__name__)
 
 # Create SQLAlchemy engine
-engine = create_engine('mysql+mysqlconnector://dbadmin:Nsdl$12345@localhost/db_frontend')
+engine = create_engine('mysql+mysqlconnector://dbadmin:Nsdl$12345@10.101.104.110:3306/db_frontend')
 
 # Define SQLAlchemy base
 Base = declarative_base()
