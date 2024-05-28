@@ -10,12 +10,13 @@ app = Flask(__name__)
 api = Api(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://dbadmin:Nsdl$12345@10.101.104.110:3306/db_frontend'
-# MySQL connection configuration
+
+# Direct MySQL connection configuration
 mysql_config = {
-    'host': 'localhost',
-    'user': 'username',
-    'password': 'password',
-    'database': 'database_name'
+    'host': '10.101.104.110',
+    'user': 'dbadmin',
+    'password': 'Nsdl$12345',
+    'database': 'db_frontend'
 }
 
 # class DatabaseInfo(Resource):
