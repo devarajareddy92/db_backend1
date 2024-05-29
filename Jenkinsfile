@@ -29,7 +29,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Perform any additional build steps
-                sh 'python3 app.py build' // Example: Running a setup.py file for building
+                sh 'python3 app.py' // Example: Running a setup.py file for building
             }
         }
     }
