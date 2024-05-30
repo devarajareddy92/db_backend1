@@ -26,10 +26,16 @@ pipeline {
                 sh 'pip install -r requirements.txt'
             }
         }
-        stage('Build') {
+       stage('Build') {
             steps {
                 // Perform any additional build steps
-                sh 'python3 app.py' // Example: Running a setup.py file for building
+                script {
+                    // Redirect output to a log file and show the last few lines to diagnose long running issues
+                    sh 'python3 app.py > build_log.txt 2>&1 &'
+                    // Monitor the output for a while to ensure it starts correctly
+                    sleep 30
+                    sh 'tail -n 100 build_log.txt'
+                }
             }
         }
     }
