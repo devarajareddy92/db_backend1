@@ -27,7 +27,7 @@ pipeline {
                 sh 'pip install -r requirements.txt'
             }
         }
-       stage('Build') {
+        stage('Build') {
             steps {
                 // Perform any additional build steps
                 script {
@@ -39,8 +39,6 @@ pipeline {
                 }
             }
         }
-    }
-   
         stage('Deploy') {
             steps {
                 // Copy the artifact to the deployment directory
@@ -55,7 +53,7 @@ pipeline {
                 }
             }
         }
-    
+    }
     post {
         success {
             // Actions to perform when the pipeline succeeds
