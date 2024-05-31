@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         VENV = '.venv'  // Assuming your virtual environment directory is named '.venv'
+        DEPLOY_DIR = '/Devar/db'
     }
     stages {
         stage('Checkout') {
@@ -39,6 +40,22 @@ pipeline {
             }
         }
     }
+   
+        stage('Deploy') {
+            steps {
+                // Copy the artifact to the deployment directory
+                sh "cp target/your-app.jar ${DEPLOY_DIR}"
+
+                // Navigate to the deployment directory
+                dir("${DEPLOY_DIR}") {
+                    // Commands to stop the existing application, if necessary
+                    sh "pkill -f your-app.jar || true"
+                    // Commands to start the new application
+                    sh "nohup java -jar your-app.jar &"
+                }
+            }
+        }
+    
     post {
         success {
             // Actions to perform when the pipeline succeeds
