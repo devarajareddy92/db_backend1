@@ -39,17 +39,14 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+       stage('Deploy') {
             steps {
-                // Copy the artifact to the deployment directory
-                sh "cp target/your-app.jar ${DEPLOY_DIR}"
-
+                // Copy the Python files to the deployment directory
+                sh "cp -r * ${DEPLOY_DIR}"
                 // Navigate to the deployment directory
                 dir("${DEPLOY_DIR}") {
-                    // Commands to stop the existing application, if necessary
-                    sh "pkill -f your-app.jar || true"
-                    // Commands to start the new application
-                    sh "nohup java -jar your-app.jar &"
+                    // Start the Python application
+                    sh "nohup python app.py &"
                 }
             }
         }
