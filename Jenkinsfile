@@ -12,10 +12,10 @@ pipeline {
         }
         stage('Setup environment') {
             steps {
-                // Activate the virtual environment
                 script {
-                    // Modify PATH to include virtual environment's bin directory
-                    withEnv(["PATH+=$VENV/bin"]) {
+                    // Create and activate the virtual environment
+                    sh 'python3 -m venv ${VENV}'
+                    withEnv(["PATH=${VENV}/bin:$PATH"]) {
                         sh 'pip install --upgrade pip setuptools'
                     }
                 }
@@ -23,41 +23,50 @@ pipeline {
         }
         stage('Install dependencies') {
             steps {
-                // Install Python dependencies using pip
-                sh 'pip install -r requirements.txt'
+                script {
+                    // Activate the virtual environment and install dependencies
+                    withEnv(["PATH=${VENV}/bin:$PATH"]) {
+                        sh 'pip install -r requirements.txt'
+                    }
+                }
             }
         }
         stage('Build') {
             steps {
-                // Perform any additional build steps
                 script {
-                    // Redirect output to a log file and show the last few lines to diagnose long running issues
-                    sh 'python3 app.py > build_log.txt 2>&1 &'
-                    // Monitor the output for a while to ensure it starts correctly
-                    sleep 30
-                    sh 'tail -n 100 build_log.txt'
+                    // Activate the virtual environment and start the app
+                    withEnv(["PATH=${VENV}/bin:$PATH"]) {
+                        sh 'python app.py > build_log.txt 2>&1 &'
+                        sleep 30
+                        sh 'tail -n 100 build_log.txt'
+                    }
                 }
             }
         }
-       stage('Deploy') {
+        stage('Deploy') {
             steps {
-                // Copy the Python files to the deployment directory
-                sh "cp -r * ${DEPLOY_DIR}"
-                // Navigate to the deployment directory
-                dir("${DEPLOY_DIR}") {
-                    // Start the Python application
-                    sh "nohup python app.py &"
+                script {
+                    // Ensure the deployment directory is writable
+                    sh "sudo chown -R ${env.USER}:${env.USER} ${DEPLOY_DIR}"
+                    
+                    // Copy files to the deployment directory
+                    sh "cp -r * ${DEPLOY_DIR}"
+                    
+                    // Navigate to the deployment directory and start the app
+                    dir("${DEPLOY_DIR}") {
+                        withEnv(["PATH=${VENV}/bin:$PATH"]) {
+                            sh "nohup python app.py &"
+                        }
+                    }
                 }
             }
         }
     }
     post {
         success {
-            // Actions to perform when the pipeline succeeds
             echo 'Pipeline succeeded!'
         }
         failure {
-            // Actions to perform when the pipeline fails
             echo 'Pipeline failed!'
         }
     }
