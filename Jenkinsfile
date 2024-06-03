@@ -46,7 +46,7 @@ pipeline {
                 // Navigate to the deployment directory
                 dir("${DEPLOY_DIR}") {
                     // Start the Python application
-                    sh "nohup python app.py &"
+                    sh "nohup python3 app.py &"
                 }
             }
         }
